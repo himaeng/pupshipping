@@ -49,7 +49,7 @@ asset Shipment identified by shipmentId {
   o Long unitCount
   o String shipmentDescription    optional
   o TemperatureReading[] temperatureReadings  optional
-  o GpsReading[] gpsReading       optional
+  o GpsReading[] gpsReadings       optional
   --> Contract contract
 }
 
