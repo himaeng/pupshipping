@@ -1,0 +1,53 @@
+/**
+ * All named queries in this file
+ **/
+
+ // Returns all shipment 
+ query AllShipments {
+   description: "Returns all shipment in the registry"
+   statement:  
+      SELECT  org.pup.shipping.shipment.Shipment
+ }
+
+ query AllShipmentsSkipLimit {
+   description: "Returns all shipment in the registry"
+   statement:  
+      SELECT  org.pup.shipping.shipment.Shipment
+      LIMIT   _$limit
+      SKIP    _$skip
+ }
+
+ query ShipmentByID {
+   description: "Returns shipment in the registry using id"
+   statement:  
+      SELECT  org.pup.shipping.shipment.Shipment
+  	  WHERE   (shipmentId == _$shipment_id)
+  } 
+
+ query ShipmentByStatus {
+   description: "Returns all shipment with specific status"
+   statement:  
+      SELECT  org.pup.shipping.shipment.Shipment
+  	  WHERE   (status == _$shipment_status)
+      ORDER BY [shipmentId ASC]
+  } 
+
+  query ArrivedShipmentWithMoreThanZero {
+    description: "Return shipment that delivered safely"
+    statement:
+        SELECT  org.pup.shipping.shipment.Shipment
+        WHERE   (status == 'ARRIVED' AND unitCount > 0)
+  }
+
+  query AllContracts {
+    description: "Returns all contracts from registry"
+    statement:
+        SELECT org.pup.shipping.contract.Contract
+  }
+
+  query ContractFromImporterCountry {
+   description: "Returns all contracts in the registry where country of importer"
+   statement:  
+      SELECT  org.pup.shipping.contract.Contract
+  	  WHERE   (importer.address.country == _$importer_country)
+  }

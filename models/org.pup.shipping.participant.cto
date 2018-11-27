@@ -1,0 +1,40 @@
+namespace org.pup.shipping.participant
+
+abstract participant Business identified by email {
+  o String email
+  o Address address
+  o Double accountBalance
+}
+
+abstract participant PowerUser identified by participantKey {
+  o String participantKey
+  o Contact contact
+}
+
+concept Contact {
+  o String email
+  o String firstName
+  o String lastName
+}
+
+participant PupPowerUser extends PowerUser {
+}
+
+concept Address {
+  o String line1 
+  o String line2 optional
+  o String city optional
+  o String province 
+  o String country
+  o String zip optional
+}
+
+participant Grower extends Business {
+}
+
+participant Shipper extends Business {
+}
+
+participant Importer extends Business {
+}
+

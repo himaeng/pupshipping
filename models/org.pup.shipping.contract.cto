@@ -1,0 +1,22 @@
+namespace org.pup.shipping.contract
+
+import org.pup.shipping.participant.*
+
+/**
+ * สร้าง Contract ระหว่าง Grower, Importer และ Shipper
+ * โดยจะมีราคาต่อหน่วยที่ตกลงกันไหว้ 
+ * ราคาต่อหน่วยอาจจะถูกคำนวนเพิ่มขึ้น คิดจากค่าปรับที่คิดจากค่า 
+ * min & max ของอุณหภูมิมาตรฐานที่ตกลงกันไว้
+ */
+asset Contract identified by contractId {
+  o String contractId
+  --> Grower grower
+  --> Shipper shipper
+  --> Importer importer
+  o DateTime arrivalDateTime
+  o Double unitPrice
+  o Double minTemperature
+  o Double maxTemperature
+  o Double minPenaltyFactor
+  o Double maxPenaltyFactor
+}

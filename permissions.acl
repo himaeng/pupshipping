@@ -1,0 +1,65 @@
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.pup.shipping.**"
+    action: ALLOW
+}
+
+rule PupNetworkAdmin {
+    description: "Grant business network administrators full access to application resources"
+    participant: "org.pup.shipping.participant.PowerUser"
+    operation: READ
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule NetworkUserSystemRead {
+    description: "สมาชิกทุกคนภายในเครือข่ายสามารถ 'อ่าน' system resources ได้ทั้งหมด"
+    participant: "ANY"
+    operation: READ
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule NetworkUserResourceRead {
+    description: "สมาชิกทุกคนภายในเครือข่ายสามารถ 'อ่าน' application resources ได้ทั้งหมด"
+    participant: "ANY"
+    operation: READ
+    resource: "org.pup.shipping.**"
+    action: ALLOW
+}
+
+rule ImporterPermissionHistorian {
+  description: "Importer สามารถบันทึกข้อมูลลง HistorianRecord หรือ blockchain ได้"
+  participant: "org.pup.shipping.participant.Importer"
+  operation: CREATE
+  resource: "org.hyperledger.composer.system.HistorianRecord"
+  action: ALLOW  
+}
+
+rule ImporterUpdatePermission {
+  description: "Importer สามารถ UPDATE state data ของ resource ได้"
+  participant: "org.pup.shipping.participant.Importer"
+  operation: UPDATE
+  resource: "org.pup.shipping.**"
+  action: ALLOW  
+}
+
+rule ThaiImporterPermission {
+  description: "มีเพียงแค่ importer ชาวไทยเท่านั้นที่สามารถแจ้งรับสินค้า (shipment) ได้"
+  participant(p): "org.pup.shipping.participant.Importer"
+  operation: CREATE
+  resource: "org.pup.shipping.shipment.*"
+  transaction: "org.pup.shipping.shipment.ShipmentReceived"
+  condition: (p.address.country == "Thailand")
+  action: ALLOW
+}
