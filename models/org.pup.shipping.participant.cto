@@ -38,3 +38,12 @@ participant Shipper extends Business {
 participant Importer extends Business {
 }
 
+abstract participant IoTDevice identified by deviceId {
+  o String deviceId
+}
+ 
+participant TemperatureSensor extends IoTDevice {
+}
+ 
+participant GpsSensor extends IoTDevice {
+}

@@ -51,6 +51,10 @@ asset Shipment identified by shipmentId {
   o TemperatureReading[] temperatureReadings  optional
   o GpsReading[] gpsReadings       optional
   --> Contract contract
+  o ShipmentPacked shipmentPacked optional
+  o ShipmentPickup shipmentPickup optional
+  o ShipmentLoaded shipmentLoaded optional
+  o ShipmentReceived shipmentReceived optional
 }
 
 /**
@@ -84,8 +88,17 @@ transaction GpsReading extends ShipmentTransaction {
  * เมื่อนั้น importer ควรจะชำระเงินค่าสินค้าให้ผู้ผลิตหรือ Grower 
  */
 transaction ShipmentReceived extends ShipmentTransaction {
+  o DateTime receivedDateTime optional
 }
 
+transaction ShipmentPacked extends ShipmentTransaction {
+}
+ 
+transaction ShipmentPickup extends ShipmentTransaction {
+}
+ 
+transaction ShipmentLoaded extends ShipmentTransaction {
+}
 
 /**
  * event รองรับ transaction ของ TemperatureReading
@@ -107,6 +120,26 @@ event TemperatureThresholdEvent {
  * event - เมื่อตู้คอนเทนเนอร์ถึงจุดหมายปลายทาง
  */
 event ShipmentInPortEvent {
+  o String message
+  --> Shipment shipment
+}
+
+event ShipmentPackedEvent {
+  o String message
+  --> Shipment shipment
+}
+ 
+event ShipmentPickupEvent {
+  o String message
+  --> Shipment shipment
+}
+ 
+event ShipmentLoadedEvent {
+  o String message
+  --> Shipment shipment
+}
+ 
+event ShipmentReceivedEvent {
   o String message
   --> Shipment shipment
 }

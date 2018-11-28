@@ -3,7 +3,7 @@
     "composer": "^0.20.4"
   },
   "name": "pupshipping",
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "pup shipping company business network application",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/pupshipping.bna",
